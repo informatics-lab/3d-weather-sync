@@ -132,11 +132,17 @@ var Channels = function () {
             }
         });
 
-        socket.on('send message', function (data) {
-            console.log('sending %s message : %s', data.room, data.message);
-            socket.broadcast.to(data.room).emit('pm', {
+        socket.on('send camera', function (data) {
+            console.log('sending %s camera : %s', data.room, data.message);
+            socket.broadcast.to(data.room).emit('camera', {
                 message: data.message
             });
+        });
+
+        socket.on('leave room', function (data) {
+            console.log("disconnecting %s from %s", socket.id, data.room);
+            channels.removeParticipantFromChannel(data.room, socket.id);
+            console.log("after disconnect, channels : " + JSON.stringify(channels.getChannels()));
         });
 
         socket.on('disconnect', function () {
