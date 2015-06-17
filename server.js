@@ -4,8 +4,6 @@ var Channels = function () {
 
     const MAX_PARTICIPANTS = 2;
 
-    var _states = ["sleepy", "happy", "grumpy", "bashful", "dopey", "tired", "joyus", "hairy", "porky", "wet"];
-    var _animals = ["cat", "dog", "horse", "sheep", "cow", "goat", "pig", "owl", "snake", "rabbit"];
     var _channels = {};
 
     var getChannels = function () {
@@ -26,9 +24,7 @@ var Channels = function () {
      * @returns {String} a unique identifier in the form of state-animal
      */
     var getNewChannel = function () {
-        var state = _states[_.random(0, 9)];
-        var animal = _animals[_.random(0, 9)];
-        var channel = state + "-" + animal;
+        var channel = _.random(1000, 9999).toString();
         if (!isChannel(channel)) {
             _channels[channel] = [];
             return channel;
