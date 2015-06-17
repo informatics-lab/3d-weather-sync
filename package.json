@@ -1,5 +1,5 @@
 {
-  "name": "3d-sync",
+  "name": "3d-weather-sync",
   "version": "0.0.1",
   "description": "Sync camera positions between multiple 3d weather sessions.",
   "dependencies": {
