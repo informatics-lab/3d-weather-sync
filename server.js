@@ -15,7 +15,11 @@ var Channels = function () {
     };
 
     var getNumParticipants = function (channel) {
-        return _channels[channel].length;
+        if (_channels[channel]){
+          return _channels[channel].length;
+        } else {
+          return null;
+        }
     };
 
     /**
@@ -142,6 +146,12 @@ var Channels = function () {
         socket.on('leave room', function (data) {
             console.log("disconnecting %s from %s", socket.id, data.room);
             channels.removeParticipantFromChannel(data.room, socket.id);
+            if (channels.getNumParticipants(data.room) > 0){
+              io.sockets.in(data.room).emit('subscription', {
+                  'roomId': data.room,
+                  'participants': channels.getNumParticipants(data.room)
+              });
+            }
             console.log("after disconnect, channels : " + JSON.stringify(channels.getChannels()));
         });
 
